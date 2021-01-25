@@ -1,0 +1,208 @@
+package practica1;
+
+import java.util.Scanner;
+
+public class practicaProg1 {
+
+	public static void main(String[] args) {
+		Scanner entrada = new Scanner(System.in);  //creamos objeto scanner para que lea valores por pantalla
+		boolean salir = false; 		//inicializamos variable a false para poder seguir mientras no cambie a true
+		int opcion;
+		
+		while(!salir) {  //usamos variable mientras sea true
+			
+			System.out.println("1: leer 5 numeros");
+			System.out.println("2: leer 5 numeros y mostrarlos en inverso");
+			System.out.println("3: leer 5 numero y realizar la media de los positivos, la media de los negativos y el numero de 0s");
+			System.out.println("4: leer el texto introducido y devolver la cantidad de caracteres que tiene ");
+			System.out.println("5: leer el texto introducido y devolver el texto invertido");
+			System.out.println("6: leer el texto y suprime los espacios");
+			System.out.println("7: reciba dos cadenas y las devuelva concatenadas");
+			System.out.println("8: Reciba como parametro una cadena y una vocal y sustituya todas las vocales por la vocal introducida");
+			System.out.println("9: Reciba una cadena y lo devuelva como codido ASCII");
+			System.out.println("10: salir");
+			
+			System.out.println("Escoge la opcion que quieras ");
+			System.out.println("");
+			opcion= entrada.nextInt();
+		
+		
+		
+		switch (opcion) {
+		
+			case 1:
+				System.out.println("Has seleccionado la opción 1. ");
+				leer5Numeros();
+				break;
+			case 2: 
+				System.out.println("Has seleccionado la opción 2. ");
+				leer5Invertir();
+				break;
+			case 3: 
+				System.out.println("Has seleccionado la opción 3. ");
+				leer5Media();
+				break;
+			case 4:
+				System.out.println("Has seleccionado la opción 4.");
+				leerTextoContar();
+				break;
+			case 5:
+				System.out.println("Has seleccionado la opción 5.");
+				leerTextoInvertir();
+				break;
+			case 6:
+				System.out.println("Has seleccionado la opción 6.");
+				suprimeEspacios();
+				break;
+			case 7: 
+				System.out.println("Has seleccionado la opcion 7.");
+				juntarCadenas();
+				break;
+				
+			case 8:
+				System.out.println("Has seleccionado la opción 8.");
+				sustituirVocal();
+				break;
+			case 9:
+				System.out.println("Has seleccionado la opción 9.");
+				cambiarTextoAscii();
+				break;
+			case 10:
+				salir = true;
+				break;
+		}
+			
+				
+		}
+	}
+	
+	
+//	Leer 5 números (con bucle por favor, no pongáis 5 scanner consecutivos) y mostrarlos en el mismo orden introducido. 
+//	Lo 5 números se deben almacenar en un array.
+	public static void  leer5Numeros() {
+		Scanner ns = new Scanner(System.in);
+		int arrayNumeros[] = new int[5];
+		for ( int i=0; i<arrayNumeros.length ; i++){
+			System.out.println("Introduce el "+ (i+1) + " numero: ");
+			int numero = ns.nextInt();
+			arrayNumeros[i] = numero;
+		}
+		for (int i=0; i< arrayNumeros.length; i ++) {
+			System.out.print(" "+arrayNumeros[i]);
+		}
+		System.out.println("");
+	}
+	
+	public static void leer5Invertir() {
+		Scanner ns = new Scanner(System.in);
+		int arrayNumInv[] = new int[5];
+		for ( int i=0; i<arrayNumInv.length ; i++){
+			System.out.println("Introduce el "+ (i+1) + " numero: ");
+			int numero = ns.nextInt();
+			arrayNumInv[i] = numero;
+		}
+		for (int i=arrayNumInv.length; i>0; i--) {
+			System.out.print(" "+ arrayNumInv[(i-1)]); //aqui el i-1 se utiliza para no salirse del borde del array,
+									//es decir,como java cuenta desde 0 a 4, estaria contando un 5 que no existe
+		}
+		System.out.println("");
+		
+	}
+	public static void leer5Media() {
+		Scanner ns = new Scanner(System.in);
+		int arrayMedia[]= new int [5];
+		int arrayMediaPos[] = new int[5];
+		int arrayMediaNeg[] = new int[5];
+		int contadorPos=0;
+		int contadorNeg=0;
+		int contador0 = 0;
+		for ( int i=0; i<arrayMedia.length ; i++){
+			System.out.println("Introduce el "+ (i+1) + " numero: ");
+			int numero = ns.nextInt();
+			if (numero > 0) {
+				arrayMediaPos[i]= numero;
+				contadorPos++;
+			} 
+			else if (numero < 0) {
+				arrayMediaNeg[i] = numero;
+				contadorNeg++;
+			}
+			else if (numero==0) {
+				contador0 ++;
+			}
+		}
+		if (contadorPos >0) {
+			int mediaPos=0;
+			for (int i=0 ; i<arrayMediaPos.length; i++ ) {
+				mediaPos =mediaPos + arrayMediaPos[i]; 
+			}System.out.println("La media de los numeros positivos es: " + (mediaPos/contadorPos));
+		}
+		if (contadorNeg > 0) {
+			int mediaNeg=0;
+			for (int i=0 ; i<arrayMediaNeg.length; i++ ) {
+				mediaNeg =mediaNeg + arrayMediaNeg[i]; 
+			}
+			System.out.println("La media de los numeros negativos es: " + (mediaNeg/contadorNeg));
+		}
+		System.out.println("La cantidad de ceros es: " + contador0 );
+	}
+	public static void leerTextoContar() {
+		System.out.println("Introduce un texto, vamos a contar los caràcteres: ");
+		Scanner ns = new Scanner(System.in);
+		String texto = ns.nextLine();
+		System.out.println("La cantidad de caracteres son " + texto.length());
+		
+		
+	}
+	public static void leerTextoInvertir() {
+		System.out.println("Introduce un texto, vamos a invertirlo: ");
+		Scanner ns = new Scanner(System.in);
+		String texto = ns.nextLine();
+		String cadenaInversa = new String();
+		for (int i= texto.length()-1; i>=0; i--) {
+			cadenaInversa = cadenaInversa + texto.charAt(i);
+		}
+		System.out.println("La cadena invertida es: "+ cadenaInversa);
+		
+	}
+	public static void suprimeEspacios() {
+		System.out.println("Introduce un texto, vamos a quitar los espacios");
+		Scanner ns = new Scanner(System.in);
+		String texto = ns.nextLine();
+		String cadenaJunta = new String();
+		cadenaJunta = texto.replace(" ", "");
+		System.out.println("El texto sin espacios es: " + cadenaJunta);
+	}
+	public static void juntarCadenas(){
+		Scanner ns = new Scanner (System.in);
+		System.out.println("Introduce el primer texto: ");
+		String texto1 = ns.nextLine();
+		System.out.println("Introduce el segundo texto: ");
+		String texto2 = ns.nextLine();
+		String juntaCadenas = texto1.concat(texto2);
+		System.out.println("El resultado de juntar las cadenas es: " + juntaCadenas);
+		
+		
+	}
+	public static void sustituirVocal() {
+		Scanner ns = new Scanner (System.in);
+		System.out.println("Introduce el texto: ");
+		String textoVocal = ns.nextLine();
+		System.out.println("Introduce una vocal: ");
+		String Vocal = ns.nextLine();
+		String textoCambiado = textoVocal.replace("a",Vocal).replace("e",Vocal).replace("i",Vocal).replace("o",Vocal).replace("e", "1").replace("u",Vocal);
+		System.out.println("La frase cambiada es: " + textoCambiado);
+	}
+	public static void cambiarTextoAscii() {
+		Scanner ns = new Scanner(System.in);
+		System.out.println("Introduce el texto: ");
+		String textoAscii = ns.nextLine();
+		for (int i=0; i<=textoAscii.length()-1; i++){
+		  System.out.print(" "+ textoAscii.codePointAt(i));
+			;	
+		
+//		for (int i = textoAscii.length()-1; i>0; i--) {
+//			System.out.print(" "+ textoAscii.charAt(i));
+		}
+	}
+}
